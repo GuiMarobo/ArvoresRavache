@@ -4,7 +4,8 @@ public class No{
 
     public No(String valor, No esquerda, No direita) {
         this.valor = valor;
-        esquerda = direita = null;
+        esquerda = null;
+        direita = null;
     }
 
     public int contarNos(No no){
@@ -14,7 +15,7 @@ public class No{
 
     public void preOrdem(No no) {
         if (no != null) {
-            System.out.println(no.valor + " ");
+            System.out.print(no.valor + ", ");
             preOrdem(no.esquerda);
             preOrdem(no.direita);
 
