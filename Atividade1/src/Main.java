@@ -1,3 +1,5 @@
-public class Main{
-    No raiz;
+public class Main {
+    public static void main(String[] args) {
+
+    }
 }
