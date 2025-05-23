@@ -15,22 +15,24 @@ public class Main {
         System.out.print("Pré-Ordem: ");
         arvore.preOrdem(arvore.raiz);
 
-        System.out.println("---------------------");
-
         System.out.print("\nEm Ordem: ");
         arvore.emOrdem(arvore.raiz);
 
-        System.out.println("---------------------");
-
-        System.out.println("\nPós-Ordem: ");
+        System.out.print("\nPós-Ordem: ");
         arvore.posOrdem(arvore.raiz);
 
-        System.out.println("---------------------");
-
-        System.out.println("\nBusca por Nível: ");
+        System.out.print("\nBusca por Nível: ");
         arvore.buscarNivel();
 
-        
+        System.out.println("----------------------------");
+        System.out.println("------Métodos Iterativos------");
+
+        System.out.println("Contar nós: " + arvore.contarNosIterativo());
+
+
+
+
+
 
 
 
