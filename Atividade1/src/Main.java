@@ -11,9 +11,29 @@ public class Main {
 
         arvore.setRaiz(arvore.raiz);
 
-        System.out.println("Contar nós: " + arvore.raiz.contarNos(arvore.raiz));
+        System.out.println("Contar nós: " + arvore.contarNos(arvore.raiz));
         System.out.print("Pré-Ordem: ");
-        arvore.raiz.preOrdem(arvore.raiz);
+        arvore.preOrdem(arvore.raiz);
+
+        System.out.println("---------------------");
+
+        System.out.print("\nEm Ordem: ");
+        arvore.emOrdem(arvore.raiz);
+
+        System.out.println("---------------------");
+
+        System.out.println("\nPós-Ordem: ");
+        arvore.posOrdem(arvore.raiz);
+
+        System.out.println("---------------------");
+
+        System.out.println("\nBusca por Nível: ");
+        arvore.buscarNivel();
+
+        
+
+
+
 
     }
 }
