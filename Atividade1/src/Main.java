@@ -24,10 +24,16 @@ public class Main {
         System.out.print("\nBusca por Nível: ");
         arvore.buscarNivel();
 
-        System.out.println("----------------------------");
-        System.out.println("------Métodos Iterativos------");
+        System.out.println("\n------Métodos Iterativos------");
 
         System.out.println("Contar nós: " + arvore.contarNosIterativo());
+        System.out.print("Pré-Ordem Iterativo: ");
+        arvore.preOrdemIterativo();
+        System.out.print("\nEm Ordem Iterativo: ");
+        arvore.emOrdemIterativo();
+        System.out.print("\nPós-Ordem Iterativo: ");
+        arvore.posOrdemIterativo();
+
 
 
 

@@ -71,4 +71,70 @@ public class Arvore {
         return i;
     }
 
+    public void preOrdemIterativo() {
+        if (raiz == null) return;
+
+        Stack<No> pilha = new Stack<>();
+        pilha.push(raiz);
+
+        while (!pilha.isEmpty()) {
+            No atual = pilha.pop();
+            System.out.print(atual.valor + ", ");
+
+            if (atual.direita != null) {
+                pilha.push(atual.direita);
+            }
+            if (atual.esquerda != null) {
+                pilha.push(atual.esquerda);
+            }
+        }
+    }
+
+
+    public void emOrdemIterativo() {
+        Stack<No> pilha = new Stack<>();
+        No atual = raiz;
+
+        while (atual != null || !pilha.isEmpty()) {
+            while (atual != null) {
+                pilha.push(atual);
+                atual = atual.esquerda;
+            }
+
+            atual = pilha.pop();
+            System.out.print(atual.valor + ", ");
+
+            atual = atual.direita;
+        }
+    }
+
+
+
+    public void posOrdemIterativo() {
+        if (raiz == null) return;
+
+        Stack<No> pilha1 = new Stack<>();
+        Stack<No> pilha2 = new Stack<>();
+
+        pilha1.push(raiz);
+
+        while (!pilha1.isEmpty()) {
+            No atual = pilha1.pop();
+            pilha2.push(atual);
+
+            if (atual.esquerda != null) {
+                pilha1.push(atual.esquerda);
+            }
+            if (atual.direita != null) {
+                pilha1.push(atual.direita);
+            }
+        }
+
+        while (!pilha2.isEmpty()) {
+            No atual = pilha2.pop();
+            System.out.print(atual.valor + ", ");
+        }
+    }
+
+
 }
