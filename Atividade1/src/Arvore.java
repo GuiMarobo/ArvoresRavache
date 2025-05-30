@@ -9,7 +9,7 @@ public class Arvore {
         this.raiz = raiz;
     }
 
-    public int contarNos(No no){
+    public int contarNos(No no) {
         if (no == null) return 0;
         return 1 + contarNos(no.esquerda) + contarNos(no.direita);
     }
@@ -31,7 +31,7 @@ public class Arvore {
         }
     }
 
-    public void posOrdem(No no){
+    public void posOrdem(No no) {
         if (no != null) {
             posOrdem(no.esquerda);
             posOrdem(no.direita);
@@ -39,7 +39,7 @@ public class Arvore {
         }
     }
 
-    public void buscarNivel(){
+    public void buscarNivel() {
         if (raiz == null) return;
 
         Queue<No> fila = new LinkedList<>();
@@ -54,7 +54,7 @@ public class Arvore {
         }
     }
 
-    public int contarNosIterativo(){
+    public int contarNosIterativo() {
         if (raiz == null) return 0;
 
         int i = 0;
@@ -109,7 +109,6 @@ public class Arvore {
     }
 
 
-
     public void posOrdemIterativo() {
         if (raiz == null) return;
 
@@ -136,5 +135,32 @@ public class Arvore {
         }
     }
 
+    public int contarFolhas(No no) {
+        if (no == null) return 0;
+        if (no.esquerda == null && no.direita == null)
+            return 1;
+        else {
+            return contarFolhas(no.esquerda) + contarFolhas(no.direita);
+        }
+    }
 
+    public int contarFolhasIterativo() {
+        if (raiz == null) return 0;
+
+        int i = 0;
+        Stack<No> pilha = new Stack<>();
+        pilha.push(raiz);
+
+        while (!pilha.isEmpty()) {
+            No noAtual = pilha.pop();
+            if (noAtual.esquerda == null && noAtual.direita == null){
+                i++;
+            }
+            else {
+                if (noAtual.esquerda != null) pilha.add(noAtual.esquerda);
+                if (noAtual.direita != null) pilha.add(noAtual.direita);
+            }
+        }
+        return i;
+    }
 }

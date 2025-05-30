@@ -24,6 +24,8 @@ public class Main {
         System.out.print("\nBusca por Nível: ");
         arvore.buscarNivel();
 
+        System.out.println("\nContar Nós Folha: " + arvore.contarFolhas(arvore.raiz));
+
         System.out.println("\n------Métodos Iterativos------");
 
         System.out.println("Contar nós: " + arvore.contarNosIterativo());
@@ -33,7 +35,7 @@ public class Main {
         arvore.emOrdemIterativo();
         System.out.print("\nPós-Ordem Iterativo: ");
         arvore.posOrdemIterativo();
-
+        System.out.println("\nContar Nós Folhas Iterativo: " + arvore.contarFolhasIterativo());
 
 
 
