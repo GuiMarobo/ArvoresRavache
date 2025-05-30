@@ -7,7 +7,7 @@ public class Main {
 
         arvore.raiz.esquerda.esquerda = new No("D", null, null);
         arvore.raiz.esquerda.direita = new No("E", null, null);
-        arvore.raiz.direita.esquerda = new No("F", null, null);
+        arvore.raiz.direita.direita = new No("F", null, null);
 
         arvore.setRaiz(arvore.raiz);
 

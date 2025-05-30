@@ -71,6 +71,23 @@ public class Arvore {
         return i;
     }
 
+    public int contarNosComFila() {
+        if (raiz == null) return 0;
+
+        int i = 0;
+        Queue<No> fila = new LinkedList<>();
+        fila.add(raiz);
+
+        while (!fila.isEmpty()) {
+            No noAtual = fila.poll();
+            i++;
+
+            if (noAtual.esquerda != null) fila.add(noAtual.esquerda);
+            if (noAtual.direita != null) fila.add(noAtual.direita);
+        }
+        return i;
+    }
+
     public void preOrdemIterativo() {
         if (raiz == null) return;
 
