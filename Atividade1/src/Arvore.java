@@ -71,7 +71,7 @@ public class Arvore {
         return i;
     }
 
-    public int contarNosComFila() {
+    public int contarNosComFila() { // código feito na aula, para estudo
         if (raiz == null) return 0;
 
         int i = 0;
@@ -180,4 +180,48 @@ public class Arvore {
         }
         return i;
     }
+
+    private int altura(No no){
+        if (no == null) return 0;
+        return no.altura;
+    }
+
+    private int fatorBalanceamento(No no){
+        if (no == null) return 0;
+        return altura(no.esquerda) - altura(no.direita);
+    }
+
+    public void atualizarAltura(No no){
+        int alturaEsquerda = altura(no.esquerda);
+        int alturaDireita = altura(no.direita);
+
+        if (alturaEsquerda > alturaDireita){
+            no.altura = alturaEsquerda + 1;
+        } else {
+            no.altura = alturaDireita + 1;
+        }
+    }
+
+    public No inserir(No no, String valor){
+        if (no == null){
+            return new No(valor, null, null);
+        }
+
+        if (valor.compareTo(no.valor) < 0){
+            no.esquerda = inserir(no.esquerda, valor);
+        } else if (valor.compareTo(no.valor) > 0) {
+            no.direita = inserir(no.direita, valor);
+        } else{
+            return no;
+        }
+
+        atualizarAltura(no);
+
+        return no;
+    }
+
+    public void inserirValor(String valor) {
+        raiz = inserir(raiz, valor);
+    }
+
 }

@@ -12,6 +12,7 @@ public class Main {
         arvore.setRaiz(arvore.raiz);
 
         System.out.println("Contar nós: " + arvore.contarNos(arvore.raiz));
+
         System.out.print("Pré-Ordem: ");
         arvore.preOrdem(arvore.raiz);
 
@@ -26,15 +27,19 @@ public class Main {
 
         System.out.println("\nContar Nós Folha: " + arvore.contarFolhas(arvore.raiz));
 
-        System.out.println("\n------Métodos Iterativos------");
+        System.out.println("\n------Métodos Iterativos------"); // daqui pra baixo são iterativos
 
         System.out.println("Contar nós: " + arvore.contarNosIterativo());
+
         System.out.print("Pré-Ordem Iterativo: ");
         arvore.preOrdemIterativo();
+
         System.out.print("\nEm Ordem Iterativo: ");
         arvore.emOrdemIterativo();
+
         System.out.print("\nPós-Ordem Iterativo: ");
         arvore.posOrdemIterativo();
+
         System.out.println("\nContar Nós Folhas Iterativo: " + arvore.contarFolhasIterativo());
 
 
