@@ -191,6 +191,34 @@ public class Arvore {
         return altura(no.esquerda) - altura(no.direita);
     }
 
+    // pergunta da prova, essa é a rotação LL.
+    No rotacaoDireita(No y) {
+        No x = y.esquerda;
+        No T2 = x.direita;
+
+        x.direita = y;
+        y.esquerda = T2;
+
+        atualizarAltura(x);
+        atualizarAltura(y);
+
+        return x;
+    }
+
+    //pergunta da prova, essa é a rotação RR
+    No rotacaoEsquerda(No x){
+        No y = x.direita;
+        No T2 = y.esquerda;
+
+        y.esquerda = x;
+        x.direita = T2;
+
+        atualizarAltura(x);
+        atualizarAltura(y);
+
+        return y;
+    }
+
     public void atualizarAltura(No no){
         int alturaEsquerda = altura(no.esquerda);
         int alturaDireita = altura(no.direita);
@@ -216,6 +244,10 @@ public class Arvore {
         }
 
         atualizarAltura(no);
+
+        fatorBalanceamento(no);
+
+        if (fatorBalanceamento(no) > 1 && no.getValor() < no.esquerda.valor) return rotacaoDireita(no);
 
         return no;
     }
