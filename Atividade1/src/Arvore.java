@@ -247,7 +247,7 @@ public class Arvore {
 
         fatorBalanceamento(no);
 
-        if (fatorBalanceamento(no) > 1 && no.getValor() < no.esquerda.valor) return rotacaoDireita(no);
+        if (fatorBalanceamento(no) > 1 && valor.compareTo(no.esquerda.valor) < 0) return rotacaoDireita(no);
 
         return no;
     }
