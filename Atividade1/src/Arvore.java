@@ -16,7 +16,7 @@ public class Arvore {
 
     public void preOrdem(No no) {
         if (no != null) {
-            System.out.print(no.valor + ", ");
+            System.out.print(no.chave + ", ");
             preOrdem(no.esquerda);
             preOrdem(no.direita);
 
@@ -26,7 +26,7 @@ public class Arvore {
     public void emOrdem(No no) {
         if (no != null) {
             emOrdem(no.esquerda);
-            System.out.print(no.valor + ", ");
+            System.out.print(no.chave + ", ");
             emOrdem(no.direita);
         }
     }
@@ -35,7 +35,7 @@ public class Arvore {
         if (no != null) {
             posOrdem(no.esquerda);
             posOrdem(no.direita);
-            System.out.print(no.valor + ", ");
+            System.out.print(no.chave + ", ");
         }
     }
 
@@ -47,7 +47,7 @@ public class Arvore {
 
         while (!fila.isEmpty()) {
             No noAtual = fila.poll();
-            System.out.print(noAtual.valor + ", ");
+            System.out.print(noAtual.chave + ", ");
 
             if (noAtual.esquerda != null) fila.add(noAtual.esquerda);
             if (noAtual.direita != null) fila.add(noAtual.direita);
@@ -96,7 +96,7 @@ public class Arvore {
 
         while (!pilha.isEmpty()) {
             No atual = pilha.pop();
-            System.out.print(atual.valor + ", ");
+            System.out.print(atual.chave + ", ");
 
             if (atual.direita != null) {
                 pilha.push(atual.direita);
@@ -119,7 +119,7 @@ public class Arvore {
             }
 
             atual = pilha.pop();
-            System.out.print(atual.valor + ", ");
+            System.out.print(atual.chave + ", ");
 
             atual = atual.direita;
         }
@@ -148,7 +148,7 @@ public class Arvore {
 
         while (!pilha2.isEmpty()) {
             No atual = pilha2.pop();
-            System.out.print(atual.valor + ", ");
+            System.out.print(atual.chave + ", ");
         }
     }
 
@@ -223,37 +223,50 @@ public class Arvore {
         int alturaEsquerda = altura(no.esquerda);
         int alturaDireita = altura(no.direita);
 
-        if (alturaEsquerda > alturaDireita){
-            no.altura = alturaEsquerda + 1;
-        } else {
-            no.altura = alturaDireita + 1;
-        }
+        no.altura = Math.max(alturaEsquerda, alturaDireita) + 1;
     }
 
-    public No inserir(No no, String valor){
+    public No inserir(No no, int chave){
         if (no == null){
-            return new No(valor, null, null);
+            return new No(chave, null, null);
         }
 
-        if (valor.compareTo(no.valor) < 0){
-            no.esquerda = inserir(no.esquerda, valor);
-        } else if (valor.compareTo(no.valor) > 0) {
-            no.direita = inserir(no.direita, valor);
-        } else{
+        if (chave < no.chave){
+            no.esquerda = inserir(no.esquerda, chave);
+        } else if (chave > no.chave) {
+            no.direita = inserir(no.direita, chave);
+        } else {
             return no;
         }
 
         atualizarAltura(no);
 
-        fatorBalanceamento(no);
+        // Rotacao LL
+        if (fatorBalanceamento(no) > 1 && chave < no.esquerda.chave)
+            return rotacaoDireita(no);
 
-        if (fatorBalanceamento(no) > 1 && valor.compareTo(no.esquerda.valor) < 0) return rotacaoDireita(no);
+        // Rotacao RR
+        if (fatorBalanceamento(no) < -1 && chave > no.direita.chave)
+            return rotacaoEsquerda(no);
+
+        // Rotacao LR
+        if (fatorBalanceamento(no) > 1 && chave > no.esquerda.chave) {
+            no.esquerda = rotacaoEsquerda(no.esquerda);
+            return rotacaoDireita(no);
+        }
+
+        // Rotacao RL
+        if (fatorBalanceamento(no) < -1 && chave < no.direita.chave) {
+            no.direita = rotacaoDireita(no.direita);
+            return rotacaoEsquerda(no);
+        }
 
         return no;
     }
 
-    public void inserirValor(String valor) {
-        raiz = inserir(raiz, valor);
+
+    public void inserirValor(int chave) {
+        raiz = inserir(raiz, chave);
     }
 
 }
