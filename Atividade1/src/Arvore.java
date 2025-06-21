@@ -181,6 +181,20 @@ public class Arvore {
         return i;
     }
 
+    public void imprimirArvore() {
+        System.out.println("Árvore AVL:");
+        imprimirNo(raiz, "", true);
+    }
+
+    private void imprimirNo(No node, String prefixo, boolean isLeft) {
+        if (node != null) {
+            System.out.println(prefixo + (isLeft ? "├── " : "└── ") + node.chave);
+            imprimirNo(node.esquerda, prefixo + (isLeft ? "│   " : "    "), true);
+            imprimirNo(node.direita, prefixo + (isLeft ? "│   " : "    "), false);
+        }
+    }
+
+
     private int altura(No no){
         if (no == null) return 0;
         return no.altura;
@@ -191,7 +205,33 @@ public class Arvore {
         return altura(no.esquerda) - altura(no.direita);
     }
 
+    public void atualizarAltura(No no){
+        int alturaEsquerda = altura(no.esquerda);
+        int alturaDireita = altura(no.direita);
+
+        no.altura = Math.max(alturaEsquerda, alturaDireita) + 1;
+    }
+
+
+    public No buscarValor(int chave) {
+        return buscar(raiz, chave);
+    }
+
+    public No buscar(No no, int chave) {
+        if (no == null || no.chave == chave) {
+            return no;
+        }
+
+        if (chave < no.chave) {
+            return buscar(no.esquerda, chave);
+        } else {
+            return buscar(no.direita, chave);
+        }
+    }
+
     // pergunta da prova, essa é a rotação LL.
+
+    // LL
     No rotacaoDireita(No y) {
         No x = y.esquerda;
         No T2 = x.direita;
@@ -206,6 +246,8 @@ public class Arvore {
     }
 
     //pergunta da prova, essa é a rotação RR
+
+    // RR
     No rotacaoEsquerda(No x){
         No y = x.direita;
         No T2 = y.esquerda;
@@ -219,11 +261,16 @@ public class Arvore {
         return y;
     }
 
-    public void atualizarAltura(No no){
-        int alturaEsquerda = altura(no.esquerda);
-        int alturaDireita = altura(no.direita);
+    // LR
+    No rotacaoEsquerdaDireita(No z) {
+        z.esquerda = rotacaoEsquerda(z.esquerda);
+        return rotacaoDireita(z);
+    }
 
-        no.altura = Math.max(alturaEsquerda, alturaDireita) + 1;
+    // RL
+    No rotacaoDireitaEsquerda(No z) {
+        z.direita = rotacaoDireita(z.direita);
+        return rotacaoEsquerda(z);
     }
 
     public No inserir(No no, int chave){
@@ -268,5 +315,66 @@ public class Arvore {
     public void inserirValor(int chave) {
         raiz = inserir(raiz, chave);
     }
+
+    private No minimo(No no) {
+        while (no.esquerda != null)
+            no = no.esquerda;
+        return no;
+    }
+
+    public No remover(No no, int chave) {
+        if (no == null) return null;
+
+        if (chave < no.chave) {
+            no.esquerda = remover(no.esquerda, chave);
+        } else if (chave > no.chave) {
+            no.direita = remover(no.direita, chave);
+        } else {
+            if (no.esquerda == null || no.direita == null) {
+                No temp = (no.esquerda != null) ? no.esquerda : no.direita;
+                if (temp == null) {
+                    return null;
+                } else {
+                    return temp;
+                }
+            }
+
+            No sucessor = minimo(no.direita);
+            no.chave = sucessor.chave;
+            no.direita = remover(no.direita, sucessor.chave);
+        }
+
+        atualizarAltura(no);
+
+        int fb = fatorBalanceamento(no);
+
+        // LL
+        if (fb > 1 && fatorBalanceamento(no.esquerda) >= 0)
+            return rotacaoDireita(no);
+
+        // LR
+        if (fb > 1 && fatorBalanceamento(no.esquerda) < 0) {
+            no.esquerda = rotacaoEsquerda(no.esquerda);
+            return rotacaoDireita(no);
+        }
+
+        // RR
+        if (fb < -1 && fatorBalanceamento(no.direita) <= 0)
+            return rotacaoEsquerda(no);
+
+        // RL
+        if (fb < -1 && fatorBalanceamento(no.direita) > 0) {
+            no.direita = rotacaoDireita(no.direita);
+            return rotacaoEsquerda(no);
+        }
+
+        return no;
+    }
+
+    public void removerValor(int chave) {
+        raiz = remover(raiz, chave);
+    }
+
+
 
 }
